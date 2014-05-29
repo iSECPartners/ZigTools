@@ -14,7 +14,7 @@ The zigTools.py file should be within the same directory as the Python script yo
 
 #### Python
 
-The zigTools.py library is dependent on pySerial  which is not included with the standard install of Python. This library has been tested and created for Python 2.7.
+The zigTools.py library is dependent on [pySerial](http://pyserial.sourceforge.net/)  which is not included with the standard install of Python. This library has been tested and created for Python 2.7.
 
 #### Arduino Libraries
 
@@ -35,15 +35,19 @@ This function attempts to connect to the radio, start the radio listener thread,
 
 ***frameCallback*** --- (Optional) Can be set to a user defined callable function. This value will be used as an event handler that will be called each time new data arrives. If this value is not set, the radio will not send any data back to the computer.
 
-***commandCallback*** --- (Optional) Can be set to a user defined callable function. This value will be used as an event handler that will be called each time new radio **command responses** are received.
+***commandCallback*** --- (Optional) Can be set to a user defined callable function. This value will be used as an event handler that will be called each time new radio [command responses](#command-codes) are received.
 
 ***comSpeed*** --- (Optional) Is an integer value to set the serial baud rate between the computer and radio. This should never need to be changed, unless the zigTools Arduino sketch is modified to have another value.
+
+-----------
 
 #### Terminate All
 ```python
 zigTools.terminate()
 ```
 This function gracefully stops the radio listener thread, open file handles and the serial object. 
+
+-----------
 
 #### Initialize Output PCAP File
 ```python
@@ -53,13 +57,17 @@ This function is used to open a file handle to a PCAP file where 802.15.4 frames
 
 ***aFile*** --- Is a string to a file within the file system.
 
+-----------
+
 #### Write Data To PCAP File
 ```python
 zigTools.writeFrameToPcap(aFrame)
 ```
 This function is used to write 802.15.4 data out to the initialized to PCAP file. 
 
-***aFrame*** --- This is a **Frame type object.**
+***aFrame*** --- This is a [Frame type object](#frame-object).
+
+-----------
 
 #### Initialize Input PCAP File
 ```python
@@ -69,15 +77,19 @@ This function is used to open a file handle to an existing PCAP file which conta
 
 ***aFile*** --- Is a string to a file within the file system.
 
+-----------
+
 #### Get Frame Frome PCAP File
 ```python
 zigTools.getFrameFromPcap(index)
 ```
 This function is used to get a frame from the open input file handle.
 
-***index*** --- This is an integer that correlates to the **Wireshark** *No.* field.
+***index*** --- This is an integer that correlates to the [Wireshark](http://www.wireshark.org/) *No.* field.
 
-***Returns*** --- A **Frame type object**.
+***Returns*** --- A [Frame type object](#frame-object).
+
+-----------
 
 #### Send Raw Data
 ```python
@@ -85,7 +97,9 @@ zigTools.sendRawData(aFrame)
 ```
 This function is used to send raw data out to the radio.
 
-***index*** --- This is a **Frame type object**.
+***index*** --- This is a [Frame type object](#frame-object).
+
+-----------
 
 #### Get Next Channel
 ```python
@@ -99,6 +113,8 @@ This function is used to get the next integer value when going up or down on ava
 
 ***Returns*** --- Next integer value within the valid channel range (11 – 26).
 
+-----------
+
 #### Change Channel
 ```python
 zigTools.changeChannel(aChannel)
@@ -106,6 +122,8 @@ zigTools.changeChannel(aChannel)
 This function is used to send a command to the radio to change the channel.
 
 ***aChannel*** --- Is an integer between 11 and 26.
+
+-----------
 
 #### RSSI To Percent
 ```python
@@ -117,6 +135,8 @@ This function is used to change the byte value of the RSSI to a percentage.
 
 ***Returns*** --- An integer between 0 and 100.
 
+-----------
+
 #### Byte To Integer
 ```python
 zigTools.byteToInt(aByte)
@@ -126,6 +146,8 @@ This function is used to convert a byte to an integer.
 ***aByte*** --- Is a character byte representing the RSSI.
 
 ***Returns*** --- An integer representation of the byte (0 - 255).
+
+-----------
 
 #### Pretty Hex
 ```python
@@ -167,7 +189,7 @@ RadioResponse Object
 ```python
 RadioResponse.commandCode
 ```
-This property is a byte value of the **command code** from the radio.
+This property is a byte value of the [command code](command-codes) from the radio.
 
 ```python
 RadioResponse.responseCode
