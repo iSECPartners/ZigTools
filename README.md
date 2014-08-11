@@ -3,7 +3,7 @@ ZigTools
 Abstract
 ---------
 
-The ZigTools.py script is a framework, which was developed to reduce the complexity in writing additional functionality in communicating with the Freakduino (Arduino based 802.15.4 platform). Features such as initializing the radio, changing channels, sending data and processing that data can be written in just a few lines allowing the user to focus on writing more complex applications without worrying about the low level communications between the radio and computer.
+The ZigTools.py script is a framework, which was developed to reduce the complexity in writing additional functionality in communicating with the [Freakduino](http://www.freaklabsstore.com/index.php?main_page=product_info&cPath=22&products_id=204) (Arduino based 802.15.4 platform). Features such as initializing the radio, changing channels, sending data and processing that data can be written in just a few lines allowing the user to focus on writing more complex applications without worrying about the low level communications between the radio and computer.
 
 Requirements
 ----------
@@ -14,7 +14,7 @@ The ZigTools.py file should be within the same directory as the Python script yo
 
 #### Python
 
-The zigTools framework is dependent on [pySerial](http://pyserial.sourceforge.net/)  which is not included with the standard install of Python. The zigTools framework has been tested and created for Python 2.7.
+The ZigTools framework is dependent on [pySerial](http://pyserial.sourceforge.net/)  which is not included with the standard install of Python. The ZigTools framework has been tested and created for Python 2.7.
 
 #### Hardware
 
@@ -33,7 +33,7 @@ API
 
 #### Initialize Radio
 ```python
-zigTools.initialize(comPort, channel = 11, frameCallback = None, commandCallback = None, comSpeed = 57600)
+ZigTools.initialize(comPort, channel = 11, frameCallback = None, commandCallback = None, comSpeed = 57600)
 ```
 This function attempts to connect to the radio, start the radio listener thread, change the channel to the initial channel and sends a command to the radio to send data if the frameCallback parameter has been defined. 
 
@@ -45,13 +45,13 @@ This function attempts to connect to the radio, start the radio listener thread,
 
 ***commandCallback*** - (Optional) Can be set to a user defined callable function. This value will be used as an event handler that will be called each time new radio [command responses](#command-codes) are received.
 
-***comSpeed*** - (Optional) Is an integer value to set the serial baud rate between the computer and radio. This should never need to be changed, unless the zigTools Arduino sketch is modified to have another value.
+***comSpeed*** - (Optional) Is an integer value to set the serial baud rate between the computer and radio. This should never need to be changed, unless the ZigTools Arduino sketch is modified to have another value.
 
 -----------
 
 #### Terminate All
 ```python
-zigTools.terminate()
+ZigTools.terminate()
 ```
 This function gracefully stops the radio listener thread, open file handles and the serial object. 
 
@@ -59,7 +59,7 @@ This function gracefully stops the radio listener thread, open file handles and 
 
 #### Initialize Output PCAP File
 ```python
-zigTools.initOutPcapFile(aFile)
+ZigTools.initOutPcapFile(aFile)
 ```
 This function is used to open a file handle to a PCAP file where 802.15.4 frames can be saved to. If the file does not exist, a file will be created with all PCAP headers and if the file does exists, the frames will be appended. 
 
@@ -69,7 +69,7 @@ This function is used to open a file handle to a PCAP file where 802.15.4 frames
 
 #### Write Data To PCAP File
 ```python
-zigTools.writeFrameToPcap(aFrame)
+ZigTools.writeFrameToPcap(aFrame)
 ```
 This function is used to write 802.15.4 data out to the initialized to PCAP file. 
 
@@ -79,7 +79,7 @@ This function is used to write 802.15.4 data out to the initialized to PCAP file
 
 #### Initialize Input PCAP File
 ```python
-zigTools.initInPcapFile(aFile)
+ZigTools.initInPcapFile(aFile)
 ```
 This function is used to open a file handle to an existing PCAP file which contains 802.15.4 data.
 
@@ -89,7 +89,7 @@ This function is used to open a file handle to an existing PCAP file which conta
 
 #### Get Frame Frome PCAP File
 ```python
-zigTools.getFrameFromPcap(index)
+ZigTools.getFrameFromPcap(index)
 ```
 This function is used to get a frame from the open input file handle.
 
@@ -101,7 +101,7 @@ This function is used to get a frame from the open input file handle.
 
 #### Send Raw Data
 ```python
-zigTools.sendRawData(aFrame)
+ZigTools.sendRawData(aFrame)
 ```
 This function is used to send raw data out to the radio.
 
@@ -111,7 +111,7 @@ This function is used to send raw data out to the radio.
 
 #### Get Next Channel
 ```python
-zigTools.getNextChannel(currChannel, upDown)
+ZigTools.getNextChannel(currChannel, upDown)
 ```
 This function is used to get the next integer value when going up or down on available channels. If the beginning or the end of the channel range is reached and the request is to go outside of the range, the resulting channel will be the rolled over channel.
 
@@ -125,7 +125,7 @@ This function is used to get the next integer value when going up or down on ava
 
 #### Change Channel
 ```python
-zigTools.changeChannel(aChannel)
+ZigTools.changeChannel(aChannel)
 ```
 This function is used to send a command to the radio to change the channel.
 
@@ -135,7 +135,7 @@ This function is used to send a command to the radio to change the channel.
 
 #### RSSI To Percent
 ```python
-zigTools.rssiToPercent(aByte)
+ZigTools.rssiToPercent(aByte)
 ```
 This function is used to change the byte value of the RSSI to a percentage.
 
@@ -147,7 +147,7 @@ This function is used to change the byte value of the RSSI to a percentage.
 
 #### Byte To Integer
 ```python
-zigTools.byteToInt(aByte)
+ZigTools.byteToInt(aByte)
 ```
 This function is used to convert a byte to an integer.
 
@@ -159,7 +159,7 @@ This function is used to convert a byte to an integer.
 
 #### Pretty Hex
 ```python
-zigTools.prettyHex(aString, newLine = 16)
+ZigTools.prettyHex(aString, newLine = 16)
 ```
 This function is used to convert a binary character array to a space delimited Hex string with a new line every 16 bytes by default.
 
@@ -223,24 +223,24 @@ Example
 -----------
 This example Python script will sniff each channel for 15 seconds before moving on to the next channel. This script will cycle through all the channels once then stop.
 ```python
-import zigTools
+import ZigTools
 import time
 
 def dataEvent(aFrame):
     print "Writing new frame to file."
-    zigTools.writeFrameToPcap(aFrame)
-    print zigTools.prettyHex(aFrame.frame)
-    print "RSSI: ", zigTools.rssiToPercent(aFrame.rssi), “%”
+    ZigTools.writeFrameToPcap(aFrame)
+    print ZigTools.prettyHex(aFrame.frame)
+    print "RSSI: ", ZigTools.rssiToPercent(aFrame.rssi), "%"
 
 if __name__ == '__main__':
     curChnl = 11
-    zigTools.initOutPcapFile("C:\\temp\\test.pcap")
-    zigTools.initialize("COM9", curChnl, dataEvent)
+    ZigTools.initOutPcapFile("C:\\temp\\test.pcap")
+    ZigTools.initialize("COM9", curChnl, dataEvent)
     for i in range(16):
         print "Changing Channel to ", curChnl
         time.sleep(15)
-        curChnl = zigTools.getNextChannel(curChnl, "+")
-        zigTools.changeChannel(curChnl)
+        curChnl = ZigTools.getNextChannel(curChnl, "+")
+        ZigTools.changeChannel(curChnl)
         
-    zigTools.terminate()
+    ZigTools.terminate()
 ```
