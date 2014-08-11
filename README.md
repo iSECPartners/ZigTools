@@ -3,22 +3,30 @@ ZigTools
 Abstract
 ---------
 
-The zigTools.py script is a framework, which was developed to reduce the complexity in writing additional functionality in communicating with the Freakduino (Arduino based 802.15.4 platform). Features such as initializing the radio, changing channels, sending data and processing that data can be written in just a few lines allowing the user to focus on writing more complex applications without worrying about the low level communications between the radio and computer.
+The ZigTools.py script is a framework, which was developed to reduce the complexity in writing additional functionality in communicating with the Freakduino (Arduino based 802.15.4 platform). Features such as initializing the radio, changing channels, sending data and processing that data can be written in just a few lines allowing the user to focus on writing more complex applications without worrying about the low level communications between the radio and computer.
 
 Requirements
 ----------
 
 #### File Structure
 
-The zigTools.py file should be within the same directory as the Python script you are writing. To import the library, add **import zigTools** to the top of your Python script.
+The ZigTools.py file should be within the same directory as the Python script you are writing. To import the library, add **import ZigTools** to the top of your Python script.
 
 #### Python
 
 The zigTools framework is dependent on [pySerial](http://pyserial.sourceforge.net/)  which is not included with the standard install of Python. The zigTools framework has been tested and created for Python 2.7.
 
+#### Hardware
+
+A [Freakduino](http://www.freaklabsstore.com/index.php?main_page=product_info&cPath=22&products_id=204) is required for this framework to function.
+
 #### Arduino Libraries
 
-TODO: Fill in this part about the Arduino sketch and chibiArduino.
+Add the chibiArduino library from this repository to your Arduino IDE.
+
+#### Arduino Sketch
+
+Load the ZigTools.ino Arduino Sketch on the Freakduino.
 
 API
 -----------
